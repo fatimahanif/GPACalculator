@@ -17,21 +17,21 @@ const HomeScreen = ({navigation}) => {
     <ScrollView style={styles.mainScroll}>
       <View style={styles.view}>
         <Image style={styles.logo} source={require('../images/logo3.png')} />
-        <Text style={{...styles.headText, color: colors.card}}>
+        <Text style={{...styles.headText, color: colors.notification}}>
           Welcome to Fatima's GPA Calculator!
         </Text>
 
         <TouchableOpacity
           style={{
             ...styles.button,
-            borderColor: colors.card,
+            borderColor: colors.notification,
             backgroundColor: colors.background,
           }}
           onPress={() => {
             navigation.navigate('Calculator');
           }}>
-          <AntDesign name="calculator" size={30} color={colors.card} />
-          <Text style={{...styles.text, color: colors.card}}>
+          <AntDesign name="calculator" size={30} color={colors.notification} />
+          <Text style={{...styles.text, color: colors.notification}}>
             Calculate your GPA
           </Text>
         </TouchableOpacity>
@@ -39,14 +39,16 @@ const HomeScreen = ({navigation}) => {
         <TouchableOpacity
           style={{
             ...styles.button,
-            borderColor: colors.card,
+            borderColor: colors.notification,
             backgroundColor: colors.background,
           }}
           onPress={() => {
             navigation.navigate('About');
           }}>
-          <AntDesign name="profile" size={30} color={colors.card} />
-          <Text style={{...styles.text, color: colors.card}}>About Me</Text>
+          <AntDesign name="profile" size={30} color={colors.notification} />
+          <Text style={{...styles.text, color: colors.notification}}>
+            About Me
+          </Text>
         </TouchableOpacity>
       </View>
     </ScrollView>

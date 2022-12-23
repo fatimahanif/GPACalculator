@@ -14,58 +14,78 @@ const AboutScreen = ({navigation}) => {
     <ScrollView style={styles.mainScroll}>
       <View style={styles.view}>
         <View style={styles.infoRow}>
-          <Fontisto name="female" size={size} color={colors.card} />
-          <Text style={{...styles.text, color: colors.card}}>Fatima Hanif</Text>
+          <Fontisto name="female" size={size} color={colors.notification} />
+          <Text style={{...styles.text, color: colors.notification}}>
+            Fatima Hanif
+          </Text>
         </View>
         <View style={styles.infoRow}>
-          <Fontisto name="date" size={size} color={colors.card} />
-          <Text style={{...styles.text, color: colors.card}}>
+          <Fontisto name="date" size={size} color={colors.notification} />
+          <Text style={{...styles.text, color: colors.notification}}>
             31 August 2002
           </Text>
         </View>
         <View style={styles.infoRow}>
-          <MaterialIcons name="computer" size={size} color={colors.card} />
-          <Text style={{...styles.text, color: colors.card}}>
+          <MaterialIcons
+            name="computer"
+            size={size}
+            color={colors.notification}
+          />
+          <Text style={{...styles.text, color: colors.notification}}>
             Web & Mobile App Developer
           </Text>
         </View>
         <View style={styles.infoRow}>
-          <FontAwesome5 name="graduation-cap" size={size} color={colors.card} />
-          <Text style={{...styles.text, color: colors.card}}>
+          <FontAwesome5
+            name="graduation-cap"
+            size={size}
+            color={colors.notification}
+          />
+          <Text style={{...styles.text, color: colors.notification}}>
             BS Software Engineering
           </Text>
         </View>
         <View style={styles.infoRow}>
-          <FontAwesome5 name="school" size={size} color={colors.card} />
-          <Text style={{...styles.text, color: colors.card}}>
+          <FontAwesome5 name="school" size={size} color={colors.notification} />
+          <Text style={{...styles.text, color: colors.notification}}>
             COMSATS University Islamabad
           </Text>
         </View>
         <View style={styles.infoRow}>
-          <FontAwesome5 name="phone-alt" size={size} color={colors.card} />
-          <Text style={{...styles.text, color: colors.card}}>
+          <FontAwesome5
+            name="phone-alt"
+            size={size}
+            color={colors.notification}
+          />
+          <Text style={{...styles.text, color: colors.notification}}>
             +92-318-5152910
           </Text>
         </View>
         <View style={styles.infoRow}>
-          <Entypo name="email" size={size} color={colors.card} />
-          <Text style={{...styles.text, color: colors.card}}>
+          <Entypo name="email" size={size} color={colors.notification} />
+          <Text style={{...styles.text, color: colors.notification}}>
             fatimahanif303@gmail.com
           </Text>
         </View>
         <View style={styles.infoRow}>
-          <Fontisto name="github" size={size} color={colors.card} />
-          <Text style={{...styles.text, color: colors.card}}>fatimahanif</Text>
+          <Fontisto name="github" size={size} color={colors.notification} />
+          <Text style={{...styles.text, color: colors.notification}}>
+            fatimahanif
+          </Text>
         </View>
         <View style={styles.infoRow}>
-          <Entypo name="linkedin-with-circle" size={size} color={colors.card} />
-          <Text style={{...styles.text, color: colors.card}}>
+          <Entypo
+            name="linkedin-with-circle"
+            size={size}
+            color={colors.notification}
+          />
+          <Text style={{...styles.text, color: colors.notification}}>
             fatima-hanif-30a5931b1
           </Text>
         </View>
         <View style={styles.infoRow}>
-          <Entypo name="location" size={size} color={colors.card} />
-          <Text style={{...styles.text, color: colors.card}}>
+          <Entypo name="location" size={size} color={colors.notification} />
+          <Text style={{...styles.text, color: colors.notification}}>
             Islamabad, Pakistan
           </Text>
         </View>

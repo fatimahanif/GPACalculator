@@ -18,6 +18,7 @@ const CustomTheme = {
     background: '#F8EDE3',
     card: '#85586F',
     text: '#F8EDE3',
+    notification: '#85586F',
   },
 };
 
