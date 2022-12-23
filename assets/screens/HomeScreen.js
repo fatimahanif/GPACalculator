@@ -1,33 +1,53 @@
 import React from 'react';
-import {Text, ScrollView, StyleSheet, View, Image, Button} from 'react-native';
+import {
+  Text,
+  ScrollView,
+  StyleSheet,
+  View,
+  Image,
+  Button,
+  TouchableOpacity,
+} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import {useTheme} from '@react-navigation/native';
 
 const HomeScreen = ({navigation}) => {
+  const {colors} = useTheme();
   return (
     <ScrollView style={styles.mainScroll}>
       <View style={styles.view}>
         <Image style={styles.logo} source={require('../images/logo3.png')} />
-        <Text style={styles.text}>Welcome to Fatima's GPA Calculator!</Text>
+        <Text style={{...styles.headText, color: colors.card}}>
+          Welcome to Fatima's GPA Calculator!
+        </Text>
 
-        <View>
-          <AntDesign name="calculator" size={30} color="#000" />
-          <Ionicons name="home" size={30} color="#000" />
-        </View>
-
-        <Button
-          title="Calculate"
+        <TouchableOpacity
+          style={{
+            ...styles.button,
+            borderColor: colors.card,
+            backgroundColor: colors.background,
+          }}
           onPress={() => {
             navigation.navigate('Calculator');
+          }}>
+          <AntDesign name="calculator" size={30} color={colors.card} />
+          <Text style={{...styles.text, color: colors.card}}>
+            Calculate your GPA
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={{
+            ...styles.button,
+            borderColor: colors.card,
+            backgroundColor: colors.background,
           }}
-        />
-        <View style={{padding: 10}}></View>
-        <Button
-          title="About"
           onPress={() => {
             navigation.navigate('About');
-          }}
-        />
+          }}>
+          <AntDesign name="profile" size={30} color={colors.card} />
+          <Text style={{...styles.text, color: colors.card}}>About Me</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
@@ -38,20 +58,33 @@ const styles = StyleSheet.create({
     backgroundColor: '#F8EDE3',
   },
   view: {
-    // backgroundColor: '#fff',
     alignItems: 'center',
-    // justifyContent: 'center',
-    paddingTop: 20,
+    paddingTop: 30,
   },
   logo: {
     width: 150,
     height: 150,
   },
-  text: {
-    color: '#85586F',
+  headText: {
     fontSize: 24,
-    paddingVertical: 8,
+    paddingVertical: 12,
     textAlign: 'center',
+    fontFamily: 'Nunito-SemiBold',
+  },
+  button: {
+    width: '65%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
+    borderWidth: 1.5,
+    margin: 10,
+    borderRadius: 3,
+    // justifyContent: 'space-between',
+    elevation: 4,
+  },
+  text: {
+    marginLeft: 15,
+    fontSize: 18,
     fontFamily: 'Nunito-Regular',
   },
 });
