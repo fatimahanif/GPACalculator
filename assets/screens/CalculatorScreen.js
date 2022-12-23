@@ -19,10 +19,11 @@ const CalculatorScreen = ({navigation}) => {
   const [credit, setCredit] = useState('');
   const [grade, setGrade] = useState('');
   const [gpa, setGpa] = useState('');
+  const [editKey, setEditKey] = useState(0);
   const [gpaList, setList] = useState([]);
 
   useEffect(() => {
-    let entry = gradesList.find(value => value.key == grade);
+    let entry = gradesList.find(value => value.value == grade);
     if (entry) setGpa(entry.key);
   }, [grade]);
 
@@ -58,10 +59,34 @@ const CalculatorScreen = ({navigation}) => {
     ]);
   };
 
+  const updateGrade = () => {
+    setList(list =>
+      gpaList.map(element =>
+        element.key === editKey
+          ? {
+              key: element.key,
+              credits: credit,
+              gpa: gpa,
+              grade: grade,
+            }
+          : element,
+      ),
+    );
+    setEditKey(0);
+  };
+
   const renderItem = ({item}) => (
-    <Text>
-      Credits: {item.credits} GPA: {item.gpa} Grade: {item.grade}
-    </Text>
+    <View style={styles.column}>
+      <Text style={{...styles.text, color: colors.notification}}>
+        Credits: {item.credits}
+      </Text>
+      <Text style={{...styles.text, color: colors.notification}}>
+        GPA: {item.gpa}
+      </Text>
+      <Text style={{...styles.text, color: colors.notification}}>
+        Grade: {item.grade}
+      </Text>
+    </View>
   );
 
   const calculateGPA = () => {
@@ -70,11 +95,11 @@ const CalculatorScreen = ({navigation}) => {
     gpaList.forEach((value, index) => {
       gpaProductsSum += value.gpa * value.credits;
       creditsSum += parseInt(value.credits);
-      console.log(creditsSum);
-      console.log(gpaProductsSum);
     });
-    alert('Your CGPA: ' + gpaProductsSum / creditsSum);
+    alert('Your CGPA: ' + parseFloat(gpaProductsSum / creditsSum).toFixed(2));
   };
+
+  // console.log(editKey);
 
   return (
     <ScrollView>
@@ -92,15 +117,19 @@ const CalculatorScreen = ({navigation}) => {
             search={false}
             boxStyles={styles.dropdown}
             dropdownStyles={styles.dropdown}
+            defaultOption={
+              editKey == 0 ? undefined : {key: credit, value: credit}
+            }
           />
           <SelectList
             setSelected={val => setGrade(val)}
             data={gradesList}
-            save="key"
+            save="value"
             placeholder="Obtained Grade"
             search={false}
             boxStyles={styles.dropdown}
             dropdownStyles={styles.dropdown}
+            defaultOption={editKey == 0 ? undefined : {key: gpa, value: grade}}
           />
         </View>
 
@@ -110,9 +139,13 @@ const CalculatorScreen = ({navigation}) => {
             borderColor: colors.notification,
             backgroundColor: colors.background,
           }}
-          onPress={addGrade}
+          onPress={() => {
+            editKey == 0 ? addGrade() : updateGrade();
+          }}
           disabled={grade == '' || credit == ''}>
-          <Text style={{...styles.text, color: colors.notification}}>Add</Text>
+          <Text style={{...styles.text, color: colors.notification}}>
+            {editKey == 0 ? 'Add' : 'Update'}
+          </Text>
         </Pressable>
 
         <View style={{...styles.scrollList, borderColor: '#85586F'}}>
@@ -120,11 +153,29 @@ const CalculatorScreen = ({navigation}) => {
             data={gpaList}
             renderItem={({item}) => (
               <View style={{...styles.itemRow, borderColor: colors.card}}>
-                <TouchableOpacity>
-                  <Text style={styles.text}>
-                    Credits: {item.credits} GPA: {item.gpa} Grade: {item.grade}
+                <TouchableOpacity
+                  onPress={() => {
+                    setEditKey(item.key);
+                    setCredit(item.credits);
+                    setGpa(item.gpa);
+                    setGrade(item.grade);
+                  }}>
+                  <Text
+                    style={{
+                      ...styles.text,
+                      color: colors.notification,
+                      width: 250,
+                    }}>
+                    Credits: {item.credits}
+                  </Text>
+                  <Text style={{...styles.text, color: colors.notification}}>
+                    GPA: {item.gpa}
+                  </Text>
+                  <Text style={{...styles.text, color: colors.notification}}>
+                    Grade: {item.grade}
                   </Text>
                 </TouchableOpacity>
+
                 <TouchableOpacity
                   onPress={() => {
                     setList(list =>
@@ -226,13 +277,17 @@ const styles = StyleSheet.create({
   itemRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 10,
+    padding: 8,
     borderBottomWidth: 0.75,
+    alignItems: 'center',
   },
   delete: {
     color: 'red',
     fontFamily: 'Nunito-Bold',
-    fontSize: 16,
+    fontSize: 22,
+  },
+  column: {
+    flexDirection: 'column',
   },
 });
 
