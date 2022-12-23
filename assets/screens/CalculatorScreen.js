@@ -6,13 +6,14 @@ import {
   View,
   Pressable,
   FlatList,
+  Touchable,
+  TouchableOpacity,
 } from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {TextInput} from 'react-native-gesture-handler';
 import {SelectList} from 'react-native-dropdown-select-list';
 
 const CalculatorScreen = ({navigation}) => {
-  
   const {colors} = useTheme();
   const size = 22;
   const [credit, setCredit] = useState('');
@@ -76,68 +77,101 @@ const CalculatorScreen = ({navigation}) => {
   };
 
   return (
-    <View style={styles.view}>
-      <Text style={{...styles.headText, color: colors.notification}}>
-        Calculate Your GPA
-      </Text>
-
-      <View style={styles.inputRow}>
-        <SelectList
-          setSelected={val => setCredit(val)}
-          data={creditsList}
-          save="key"
-          placeholder="Credit Hours"
-          search={false}
-          boxStyles={styles.dropdown}
-          dropdownStyles={styles.dropdown}
-        />
-        <SelectList
-          setSelected={val => setGrade(val)}
-          data={gradesList}
-          save="key"
-          placeholder="Obtained Grade"
-          search={false}
-          boxStyles={styles.dropdown}
-          dropdownStyles={styles.dropdown}
-        />
-      </View>
-
-      <Pressable
-        style={{
-          ...styles.button,
-          borderColor: colors.notification,
-          backgroundColor: colors.background,
-        }}
-        onPress={addGrade}
-        disabled={grade == '' || credit == ''}>
-        <Text style={{...styles.text, color: colors.notification}}>Add</Text>
-      </Pressable>
-
-      <View style={{...styles.scrollList, borderColor: '#85586F'}}>
-        <FlatList
-          data={gpaList}
-          renderItem={({item}) => (
-            <Text style={styles.text}>
-              Credits: {item.credits} GPA: {item.gpa} Grade: {item.grade}
-            </Text>
-          )}
-          keyExtractor={item => item.key}
-        />
-      </View>
-
-      <Pressable
-        style={{
-          ...styles.button,
-          borderColor: colors.notification,
-          backgroundColor: colors.background,
-        }}
-        onPress={calculateGPA}
-        disabled={gpaList.length < 1}>
-        <Text style={{...styles.text, color: colors.notification}}>
-          Calculate
+    <ScrollView>
+      <View style={styles.view}>
+        <Text style={{...styles.headText, color: colors.notification}}>
+          Calculate Your GPA
         </Text>
-      </Pressable>
-    </View>
+
+        <View style={styles.inputRow}>
+          <SelectList
+            setSelected={val => setCredit(val)}
+            data={creditsList}
+            save="key"
+            placeholder="Credit Hours"
+            search={false}
+            boxStyles={styles.dropdown}
+            dropdownStyles={styles.dropdown}
+          />
+          <SelectList
+            setSelected={val => setGrade(val)}
+            data={gradesList}
+            save="key"
+            placeholder="Obtained Grade"
+            search={false}
+            boxStyles={styles.dropdown}
+            dropdownStyles={styles.dropdown}
+          />
+        </View>
+
+        <Pressable
+          style={{
+            ...styles.button,
+            borderColor: colors.notification,
+            backgroundColor: colors.background,
+          }}
+          onPress={addGrade}
+          disabled={grade == '' || credit == ''}>
+          <Text style={{...styles.text, color: colors.notification}}>Add</Text>
+        </Pressable>
+
+        <View style={{...styles.scrollList, borderColor: '#85586F'}}>
+          <FlatList
+            data={gpaList}
+            renderItem={({item}) => (
+              <View style={{...styles.itemRow, borderColor: colors.card}}>
+                <TouchableOpacity>
+                  <Text style={styles.text}>
+                    Credits: {item.credits} GPA: {item.gpa} Grade: {item.grade}
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    setList(list =>
+                      gpaList.filter(element => element.key != item.key),
+                    );
+                  }}>
+                  <Text style={styles.delete}>X</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+            keyExtractor={item => item.key}
+          />
+        </View>
+
+        <View style={styles.row}>
+          <Pressable
+            style={{
+              ...styles.button,
+              borderColor: colors.notification,
+              backgroundColor: colors.background,
+            }}
+            onPress={() => {
+              setList([]);
+            }}
+            disabled={gpaList.length < 1}>
+            <Text style={{...styles.text, color: colors.notification}}>
+              Clear List
+            </Text>
+          </Pressable>
+
+          <Pressable
+            style={{
+              ...styles.button,
+              borderColor: colors.notification,
+              backgroundColor: colors.background,
+            }}
+            onPress={calculateGPA}
+            disabled={gpaList.length < 1}>
+            <Text style={{...styles.text, color: colors.notification}}>
+              Calculate
+            </Text>
+          </Pressable>
+        </View>
+      </View>
+
+      <Text></Text>
+    </ScrollView>
   );
 };
 
@@ -183,8 +217,22 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   text: {
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: 'Nunito-Regular',
+  },
+  row: {
+    flexDirection: 'row',
+  },
+  itemRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 10,
+    borderBottomWidth: 0.75,
+  },
+  delete: {
+    color: 'red',
+    fontFamily: 'Nunito-Bold',
+    fontSize: 16,
   },
 });
 
