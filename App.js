@@ -3,6 +3,8 @@ import React from 'react';
 import type {Node} from 'react';
 import {SafeAreaView, StatusBar, StyleSheet, View} from 'react-native';
 
+import SplashScreen from 'react-native-splash-screen';
+
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer, useTheme} from '@react-navigation/native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -25,6 +27,11 @@ const CustomTheme = {
 const App: () => Node = () => {
   const Drawer = createDrawerNavigator();
   const {colors} = useTheme();
+
+  React.useEffect(() => {
+    SplashScreen.hide(); //hides the splash screen on app load.
+  }, []);
+
   return (
     <>
       <StatusBar />
