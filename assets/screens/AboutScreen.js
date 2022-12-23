@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, ScrollView, StyleSheet, View} from 'react-native';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Octicons from 'react-native-vector-icons/Octicons';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {useTheme} from '@react-navigation/native';
@@ -19,27 +19,39 @@ const AboutScreen = ({navigation}) => {
         </View>
         <View style={styles.infoRow}>
           <Fontisto name="date" size={size} color={colors.card} />
-          <Text style={{...styles.text, color: colors.card}}>31 August 2002</Text>
+          <Text style={{...styles.text, color: colors.card}}>
+            31 August 2002
+          </Text>
         </View>
         <View style={styles.infoRow}>
           <MaterialIcons name="computer" size={size} color={colors.card} />
-          <Text style={{...styles.text, color: colors.card}}>Web & Mobile Apps Developer</Text>
+          <Text style={{...styles.text, color: colors.card}}>
+            Web & Mobile App Developer
+          </Text>
         </View>
         <View style={styles.infoRow}>
           <FontAwesome5 name="graduation-cap" size={size} color={colors.card} />
-          <Text style={{...styles.text, color: colors.card}}>BS Software Engineering</Text>
+          <Text style={{...styles.text, color: colors.card}}>
+            BS Software Engineering
+          </Text>
         </View>
         <View style={styles.infoRow}>
           <FontAwesome5 name="school" size={size} color={colors.card} />
-          <Text style={{...styles.text, color: colors.card}}>COMSATS University Islamabad</Text>
+          <Text style={{...styles.text, color: colors.card}}>
+            COMSATS University Islamabad
+          </Text>
         </View>
         <View style={styles.infoRow}>
           <FontAwesome5 name="phone-alt" size={size} color={colors.card} />
-          <Text style={{...styles.text, color: colors.card}}>+92-318-5152910</Text>
+          <Text style={{...styles.text, color: colors.card}}>
+            +92-318-5152910
+          </Text>
         </View>
         <View style={styles.infoRow}>
           <Entypo name="email" size={size} color={colors.card} />
-          <Text style={{...styles.text, color: colors.card}}>fatimahanif303@gmail.com</Text>
+          <Text style={{...styles.text, color: colors.card}}>
+            fatimahanif303@gmail.com
+          </Text>
         </View>
         <View style={styles.infoRow}>
           <Fontisto name="github" size={size} color={colors.card} />
@@ -47,11 +59,15 @@ const AboutScreen = ({navigation}) => {
         </View>
         <View style={styles.infoRow}>
           <Entypo name="linkedin-with-circle" size={size} color={colors.card} />
-          <Text style={{...styles.text, color: colors.card}}>fatima-hanif-30a5931b1</Text>
+          <Text style={{...styles.text, color: colors.card}}>
+            fatima-hanif-30a5931b1
+          </Text>
         </View>
         <View style={styles.infoRow}>
           <Entypo name="location" size={size} color={colors.card} />
-          <Text style={{...styles.text, color: colors.card}}>Islamabad, Pakistan</Text>
+          <Text style={{...styles.text, color: colors.card}}>
+            Islamabad, Pakistan
+          </Text>
         </View>
       </View>
     </ScrollView>
