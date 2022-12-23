@@ -1,41 +1,79 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Text,
   ScrollView,
   StyleSheet,
   View,
-  TouchableOpacity,
+  Pressable,
+  FlatList,
 } from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {TextInput} from 'react-native-gesture-handler';
 import {SelectList} from 'react-native-dropdown-select-list';
 
 const CalculatorScreen = ({navigation}) => {
+  
   const {colors} = useTheme();
   const size = 22;
+  const [credit, setCredit] = useState('');
+  const [grade, setGrade] = useState('');
+  const [gpa, setGpa] = useState('');
+  const [gpaList, setList] = useState([]);
 
-  const [credit, setCredit] = React.useState('');
-  const [grade, setGrade] = React.useState('');
+  useEffect(() => {
+    let entry = gradesList.find(value => value.key == grade);
+    if (entry) setGpa(entry.key);
+  }, [grade]);
 
   const creditsList = [
-    {key: '', value: '4'},
-    {key: '', value: '3'},
-    {key: '', value: '2'},
-    {key: '', value: '1'},
+    {key: '4', value: '4'},
+    {key: '3', value: '3'},
+    {key: '2', value: '2'},
+    {key: '1', value: '1'},
   ];
 
   const gradesList = [
-    {key: '', value: 'A'},
-    {key: '', value: 'A-'},
-    {key: '', value: 'B+'},
-    {key: '', value: 'B'},
-    {key: '', value: 'B-'},
-    {key: '', value: 'C+'},
-    {key: '', value: 'C'},
-    {key: '', value: 'C-'},
-    {key: '', value: 'D'},
-    {key: '', value: 'F'},
+    {key: '4.0', value: 'A'},
+    {key: '3.7', value: 'A-'},
+    {key: '3.3', value: 'B+'},
+    {key: '3.0', value: 'B'},
+    {key: '2.7', value: 'B-'},
+    {key: '2.3', value: 'C+'},
+    {key: '2.0', value: 'C'},
+    {key: '1.7', value: 'C-'},
+    {key: '1.3', value: 'D'},
+    {key: '0.0', value: 'F'},
   ];
+
+  const addGrade = () => {
+    setList([
+      ...gpaList,
+      {
+        key: Math.random().toString(),
+        credits: credit,
+        gpa: gpa,
+        grade: grade,
+      },
+    ]);
+  };
+
+  const renderItem = ({item}) => (
+    <Text>
+      Credits: {item.credits} GPA: {item.gpa} Grade: {item.grade}
+    </Text>
+  );
+
+  const calculateGPA = () => {
+    let gpaProductsSum = 0;
+    let creditsSum = 0;
+    gpaList.forEach((value, index) => {
+      gpaProductsSum += value.gpa * value.credits;
+      creditsSum += parseInt(value.credits);
+      console.log(creditsSum);
+      console.log(gpaProductsSum);
+    });
+    alert('Your CGPA: ' + gpaProductsSum / creditsSum);
+  };
 
   return (
     <View style={styles.view}>
@@ -47,7 +85,7 @@ const CalculatorScreen = ({navigation}) => {
         <SelectList
           setSelected={val => setCredit(val)}
           data={creditsList}
-          save="value"
+          save="key"
           placeholder="Credit Hours"
           search={false}
           boxStyles={styles.dropdown}
@@ -56,27 +94,49 @@ const CalculatorScreen = ({navigation}) => {
         <SelectList
           setSelected={val => setGrade(val)}
           data={gradesList}
-          save="value"
+          save="key"
           placeholder="Obtained Grade"
           search={false}
           boxStyles={styles.dropdown}
           dropdownStyles={styles.dropdown}
         />
       </View>
-      <TouchableOpacity
+
+      <Pressable
         style={{
           ...styles.button,
           borderColor: colors.notification,
           backgroundColor: colors.background,
         }}
-        onPress={()=>{alert('grade: ' + grade + ' credits: ' + credit)}}
-        >
+        onPress={addGrade}
+        disabled={grade == '' || credit == ''}>
         <Text style={{...styles.text, color: colors.notification}}>Add</Text>
-      </TouchableOpacity>
+      </Pressable>
 
-      <ScrollView style={{...styles.scrollList, borderColor: '#85586F'}}>
-        <Text>bnn</Text>
-      </ScrollView>
+      <View style={{...styles.scrollList, borderColor: '#85586F'}}>
+        <FlatList
+          data={gpaList}
+          renderItem={({item}) => (
+            <Text style={styles.text}>
+              Credits: {item.credits} GPA: {item.gpa} Grade: {item.grade}
+            </Text>
+          )}
+          keyExtractor={item => item.key}
+        />
+      </View>
+
+      <Pressable
+        style={{
+          ...styles.button,
+          borderColor: colors.notification,
+          backgroundColor: colors.background,
+        }}
+        onPress={calculateGPA}
+        disabled={gpaList.length < 1}>
+        <Text style={{...styles.text, color: colors.notification}}>
+          Calculate
+        </Text>
+      </Pressable>
     </View>
   );
 };
@@ -120,7 +180,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     marginHorizontal: 25,
     borderRadius: 3,
-    elevation: 4,
+    elevation: 3,
   },
   text: {
     fontSize: 14,
