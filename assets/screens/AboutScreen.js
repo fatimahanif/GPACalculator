@@ -11,7 +11,7 @@ const AboutScreen = ({navigation}) => {
   const {colors} = useTheme();
   const size = 22;
   return (
-    <ScrollView style={styles.mainScroll}>
+    <ScrollView style={{...styles.mainScroll, backgroundColor: colors.background}}>
       <View style={styles.view}>
         <View style={styles.infoRow}>
           <Fontisto name="female" size={size} color={colors.notification} />

@@ -103,7 +103,7 @@ const CalculatorScreen = ({navigation}) => {
 
   return (
     <ScrollView>
-      <View style={styles.view}>
+      <View style={{...styles.view, backgroundColor: colors.background}}>
         <Text style={{...styles.headText, color: colors.notification}}>
           Calculate Your GPA
         </Text>
@@ -115,8 +115,10 @@ const CalculatorScreen = ({navigation}) => {
             save="key"
             placeholder="Credit Hours"
             search={false}
-            boxStyles={styles.dropdown}
-            dropdownStyles={styles.dropdown}
+            boxStyles={{...styles.dropdown, borderColor: colors.card}}
+            dropdownStyles={{...styles.dropdown, borderColor: colors.card}}
+            dropdownTextStyles={{color: colors.card}}
+            inputStyles={{color: colors.card}}
             defaultOption={
               editKey == 0 ? undefined : {key: credit, value: credit}
             }
@@ -127,8 +129,10 @@ const CalculatorScreen = ({navigation}) => {
             save="value"
             placeholder="Obtained Grade"
             search={false}
-            boxStyles={styles.dropdown}
-            dropdownStyles={styles.dropdown}
+            boxStyles={{...styles.dropdown, borderColor: colors.card}}
+            dropdownStyles={{...styles.dropdown, borderColor: colors.card}}
+            dropdownTextStyles={{color: colors.card}}
+            inputStyles={{color: colors.card}}
             defaultOption={editKey == 0 ? undefined : {key: gpa, value: grade}}
           />
         </View>
@@ -148,7 +152,7 @@ const CalculatorScreen = ({navigation}) => {
           </Text>
         </Pressable>
 
-        <View style={{...styles.scrollList, borderColor: '#85586F'}}>
+        <View style={{...styles.scrollList, borderColor: colors.card}}>
           <FlatList
             data={gpaList}
             renderItem={({item}) => (
@@ -229,7 +233,7 @@ const CalculatorScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   view: {
     alignItems: 'center',
-    backgroundColor: '#F8EDE3',
+    // backgroundColor: '#F8EDE3',
     paddingTop: 15,
   },
   infoRow: {

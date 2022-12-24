@@ -14,7 +14,7 @@ import {useTheme} from '@react-navigation/native';
 const HomeScreen = ({navigation}) => {
   const {colors} = useTheme();
   return (
-    <ScrollView style={styles.mainScroll}>
+    <ScrollView style={{...styles.mainScroll, backgroundColor: colors.background}}>
       <View style={styles.view}>
         <Image style={styles.logo} source={require('../images/logo3.png')} />
         <Text style={{...styles.headText, color: colors.notification}}>
@@ -57,7 +57,7 @@ const HomeScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
   mainScroll: {
-    backgroundColor: '#F8EDE3',
+    // backgroundColor: '#F8EDE3',
   },
   view: {
     alignItems: 'center',
