@@ -16,7 +16,7 @@ const HomeScreen = ({navigation}) => {
   return (
     <ScrollView style={{...styles.mainScroll, backgroundColor: colors.background}}>
       <View style={styles.view}>
-        <Image style={styles.logo} source={require('../images/logo3.png')} />
+        <Image style={styles.logo} source={colors.background=='#85586F' ? require('../images/logo_dark.png') : require('../images/logo_light.png')} />
         <Text style={{...styles.headText, color: colors.notification}}>
           Welcome to Fatima's GPA Calculator!
         </Text>

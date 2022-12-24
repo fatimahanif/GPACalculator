@@ -32,6 +32,7 @@ const Light = {
 };
 
 const Dark = {
+  dark: true,
   colors: {
     primary: '#85586F',
     background: '#85586F',
